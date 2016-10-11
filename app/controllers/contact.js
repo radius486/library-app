@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  emailAddress: '',
-  isEmailValid: Ember.computed.match('emailAddress', /^.+@.+\..+$/),
+  email: '',
+  isEmailValid: Ember.computed.match('email', /^.+@.+\..+$/),
   isMessageValid: Ember.computed.gte('message.length', 5),
   isValid: Ember.computed.and('isEmailValid', 'isMessageValid'),
   isDisabled: Ember.computed.not('isValid'),
@@ -25,11 +25,18 @@ export default Ember.Controller.extend({
 
   actions: {
     sendMessage() {
-      let data = `Email: ${this.get('emailAddress')}, Message: ${this.get('message')}`;
+      const data = `Email: ${this.get('email')}, Message: ${this.get('message')}`;
+      const email = this.get('email');
+      const message = this.get('message');
+      const newMessage = this.store.createRecord('contact', {email: email, message: message});
       alert(data);
-      this.set('emailAddress', '');
-      this.set('message', '');
-      this.set('responseMessage', `We got your message and we’ll get in touch soon. ${data}`);
+
+      newMessage.save().then(() => {
+        this.set('email', '');
+        this.set('message', '');
+        this.set('responseMessage', `We got your message and we’ll get in touch soon. ${data}`);
+      });
+
     }
   }
 });
