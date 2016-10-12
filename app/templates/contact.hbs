@@ -2,25 +2,25 @@
 <p class="well well-sm">If you have any question or feedback please leave a message with your email address.</p>
 <div class="row">
   <div class="col-md-6">
-    <div class={{emailFieldClass}}>
+    <div class={{model.emailFieldClass}}>
       <label>Your email address*:</label>
-      {{input type="email" class="form-control" placeholder="Please type your e-mail address." value=email}}
-      {{#if isEmailValid}}
+      {{input type="email" class="form-control" placeholder="Please type your e-mail address." value=model.email}}
+      {{#if model.isEmailValid}}
         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
       {{/if}}
       </div>
-    <div class={{messageFieldClass}}>
+    <div class={{model.messageFieldClass}}>
       <label>Your message*:</label>
-      {{textarea class="form-control" placeholder="Your message. (At least 5 characters.)" value=message rows="7"}}
-      {{#if isMessageValid}}
+      {{textarea class="form-control" placeholder="Your message. (At least 5 characters.)" value=model.message rows="7"}}
+      {{#if model.isMessageValid}}
         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
       {{/if}}
     </div>
     <div class="form-group">
-      <button class="btn btn-success" disabled={{isDisabled}} {{action 'sendMessage'}}>Send message</button>
+      <button class="btn btn-success" disabled={{model.isDisabled}} {{action 'sendMessage' model}}>Send message</button>
     </div>
   </div>
 </div>
-{{#if responseMessage}}
-  <div class="alert alert-success">{{responseMessage}}</div>
+{{#if model.responseMessage}}
+  <div class="alert alert-success">{{model.responseMessage}}</div>
 {{/if}}
